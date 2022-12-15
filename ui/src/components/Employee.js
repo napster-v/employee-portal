@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {Link} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faPenToSquare, faTrash} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
 export const Employee = (props) => {
@@ -15,8 +15,8 @@ export const Employee = (props) => {
     function deleteEmployee() {
         fetch("http://127.0.0.1:4000/graphql/", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ query, variables }),
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({query, variables}),
         })
             .then((response) => response.json())
             .then((data, errors) => {
@@ -56,10 +56,11 @@ export const Employee = (props) => {
             <td>{props.data.title}</td>
             <td>{props.data.department}</td>
             <td>{props.data.employeeType}</td>
-            <td>{props.data.currentStatus}</td>
+            <td>{props.data.currentStatus === 1 ? "Working" : "Retired"}</td>
+            <td>{props.data.retiringIn}</td>
             <td className={"space-x-4"}>
                 <Link className={"btn btn-xs btn-circle"} to={`${props.data.id}`}>
-                    <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
+                    <FontAwesomeIcon icon="fa-solid fa-pen-to-square"/>
                 </Link>
 
                 <Link
@@ -67,7 +68,7 @@ export const Employee = (props) => {
                     className={"btn btn-xs btn-circle"}
                     to={""}
                 >
-                    <FontAwesomeIcon icon="fa-solid fa-trash" />
+                    <FontAwesomeIcon icon="fa-solid fa-trash"/>
                 </Link>
             </td>
         </tr>

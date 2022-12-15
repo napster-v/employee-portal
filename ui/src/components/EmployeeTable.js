@@ -47,7 +47,8 @@ export const EmployeeTable = ({
                             "Title",
                             "Department",
                             "Employee Type",
-                            "Current Status",
+                            "Status",
+                            "Retiring In",
                             "Action",
                         ].map((header) => {
                             return <th className="px-4 py-2" key={header}>{header}</th>;

@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
 import moment from "moment";
-import 'moment-precise-range-plugin';
+import "moment-precise-range-plugin";
 
 //calculate retirement date based on age and date of joining
 function getRetirementDate(age, dateOfJoining) {
-  let yearsToRetirement = 65 - age;
   let retirementDate = new Date(dateOfJoining);
-  retirementDate.setFullYear(retirementDate.getFullYear() + yearsToRetirement);
+  retirementDate.setFullYear(retirementDate.getFullYear() + (65 - age));
   return retirementDate;
 }
 
@@ -23,7 +22,11 @@ const EmployeeModel = new mongoose.Schema({
 });
 
 EmployeeModel.virtual("retiringIn").get(function () {
-  let preciseDiff = moment.preciseDiff(moment(new Date()), moment(this.retirementDate),true);
+  let preciseDiff = moment.preciseDiff(
+    moment(new Date()),
+    moment(this.retirementDate),
+    true
+  );
   console.log("Precise Diff:", preciseDiff);
   return `${preciseDiff.days} days, ${preciseDiff.months} months, ${preciseDiff.years} years`;
 });

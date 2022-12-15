@@ -7,7 +7,7 @@ import Toast from "./Toast";
 
 export const EmployeeDirectory = () => {
   library.add(faTriangleExclamation);
-  const query = `query Employees($empType: String!,$isRetiringSoon: Boolean!) {employees(empType: $empType, isRetiringSoon: $isRetiringSoon) {id firstName lastName age dateOfJoining title department employeeType currentStatus}}`;
+  const query = `query Employees($empType: String!,$isRetiringSoon: Boolean!) {employees(empType: $empType, isRetiringSoon: $isRetiringSoon) {id firstName lastName age dateOfJoining title department employeeType currentStatus retiringIn}}`;
   const [emp, setEmp] = useState([]);
   const [filterParam, setFilterParam] = useState("All");
   const [isDeleted, setIsDeleted] = useState(false);

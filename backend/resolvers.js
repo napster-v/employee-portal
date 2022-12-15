@@ -1,11 +1,5 @@
-import { Cat } from "./models/Cat.js";
 import { Employee } from "./models/Employee.js";
 import { GraphQLError } from "graphql";
-
-async function getAllCats() {
-  // throw new GraphQLError("Error in getAllCats");
-  return Cat.find({});
-}
 
 async function getAllEmployees(empType, isRetiringSoon) {
   console.log("EmpType:", empType);
@@ -34,14 +28,11 @@ async function getEmployee(_, { id }) {
 
 export const resolvers = {
   Query: {
-    hello: () => "Hello world!",
-    cats: getAllCats,
     employees: (_, { empType, isRetiringSoon }) =>
       getAllEmployees(empType, isRetiringSoon),
     employee: getEmployee,
   },
   Mutation: {
-    addCat,
     addEmployee,
     updateEmployee,
     deleteEmployee,
@@ -53,7 +44,7 @@ async function deleteEmployee(_, { id }) {
   let employee = await Employee.findById(id);
   console.log("Employee:", employee);
   if (employee.currentStatus === 1) {
-    throw new GraphQLError("Can't delete employee - status is active.");
+    throw new GraphQLError("Active employees cannot be deleted");
   }
   return Employee.findByIdAndDelete(id);
 }
@@ -69,9 +60,4 @@ async function addEmployee(_, { employee }) {
   console.log("Employee:", employee);
   employee.currentStatus = 1;
   return new Employee(employee).save();
-}
-
-async function addCat(_, { name }) {
-  console.log("Cat name:", name);
-  return new Cat({ name }).save();
 }
