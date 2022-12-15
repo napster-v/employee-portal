@@ -6,6 +6,9 @@ import "moment-precise-range-plugin";
 function getRetirementDate(age, dateOfJoining) {
   let retirementDate = new Date(dateOfJoining);
   retirementDate.setFullYear(retirementDate.getFullYear() + (65 - age));
+  if (age >= 64) {
+    retirementDate = moment(dateOfJoining).endOf("year").toDate();
+  }
   return retirementDate;
 }
 
@@ -27,7 +30,7 @@ EmployeeModel.virtual("retiringIn").get(function () {
     moment(this.retirementDate),
     true
   );
-  console.log("Precise Diff:", preciseDiff);
+  // console.log("Precise Diff:", preciseDiff);
   return `${preciseDiff.days} days, ${preciseDiff.months} months, ${preciseDiff.years} years`;
 });
 

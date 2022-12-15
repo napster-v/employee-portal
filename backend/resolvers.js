@@ -1,5 +1,6 @@
 import { Employee } from "./models/Employee.js";
 import { GraphQLError } from "graphql";
+import moment from "moment";
 
 async function getAllEmployees(empType, isRetiringSoon) {
   console.log("EmpType:", empType);
@@ -12,8 +13,11 @@ async function getAllEmployees(empType, isRetiringSoon) {
   if (isRetiringSoon) {
     let today = new Date();
 
-    let dateAfterSixMonths = new Date();
-    dateAfterSixMonths.setMonth(dateAfterSixMonths.getMonth() + 6);
+    // let dateAfterSixMonths = new Date();
+    let dateAfterSixMonths = moment(new Date()).add(6, "months").toDate();
+    // dateAfterSixMonths.setMonth(dateAfterSixMonths.getMonth() + 6);
+    console.log("Start Date:", today);
+    console.log("End Date:", dateAfterSixMonths);
     query.retirementDate = {
       $gte: today,
       $lte: dateAfterSixMonths,
