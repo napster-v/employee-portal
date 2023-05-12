@@ -8,7 +8,7 @@ const app = express();
 const PORT = 4000;
 
 mongoose.connect(
-  "mongodb+srv://advancedfsp:qEteQu72of0mSMMx@cluster0.jjlpfjh.mongodb.net/?retryWrites=true&w=majority",
+  "mongodb+srv://advancedfsp:<PASSWORD_REMOVED>@cluster0.jjlpfjh.mongodb.net/?retryWrites=true&w=majority",
   { useNewUrlParser: true }
 );
 
